@@ -8,7 +8,6 @@ import {
 
 // const serviceAdapter = new OpenAIAdapter({});
 const serviceAdapter = new GroqAdapter({ model: "llama-3.1-8b-instant" });
-
 const runtime = new CopilotRuntime({
   remoteEndpoints: [
     {

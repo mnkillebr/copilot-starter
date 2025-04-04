@@ -2,14 +2,44 @@
 import Image from "next/image";
 import { CopilotPopup } from "@copilotkit/react-ui";
 import { DarkModeToggle } from "@/components/DarkModeToggle";
+import { useCopilotAction } from "@copilotkit/react-core";
+import { loginLoginAccessTokenPost, Token } from "./openapi-client";
 
 export default function Home() {
+  // useCopilotAction({
+  //   name: "login",
+  //   description: "Log in user",
+  //   handler: async () => {
+  //     const { data, error } = await loginLoginAccessTokenPost({
+  //       body: {
+  //         username: "user@example.com",
+  //         password: "fakemeout"
+  //       }
+  //     })
+  //     // if (tokenData) {
+  //     //   const userResponse = await fetch('http://127.0.0.1:8000/users/me', {
+  //     //     headers: {
+  //     //       "Authorization": `Bearer ${tokenData.access_token}`
+  //     //     },
+  //     //   });
+  //     //   const userData = await userResponse.json()
+  //     //   console.log("fast api request user data", userData)
+  //     // }
+  //   },
+  // });
+  // useCopilotAction({
+  //   name: "get_all_users",
+  //   description: "Get all the users",
+  //   available: "remote",
+  //   // render
+  // })
   return (
     <>
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
         <div className="absolute top-4 right-4">
           <DarkModeToggle />
         </div>
+        {/* <Login /> */}
         <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
           <Image
             className="dark:invert"
