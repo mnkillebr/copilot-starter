@@ -1,11 +1,15 @@
-"use client"
+// "use client"
 import Image from "next/image";
-import { CopilotPopup } from "@copilotkit/react-ui";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+// import { CopilotPopup } from "@copilotkit/react-ui";
 import { DarkModeToggle } from "@/components/DarkModeToggle";
-import { useCopilotAction } from "@copilotkit/react-core";
-import { loginLoginAccessTokenPost, Token } from "./openapi-client";
+// import { useCopilotAction } from "@copilotkit/react-core";
+// import { loginLoginAccessTokenPost, Token } from "./openapi-client";
+import { isLoggedIn } from "@/components/auth/user";
+import { redirect } from "next/navigation";
 
-export default function Home() {
+export default async function Home() {
   // useCopilotAction({
   //   name: "login",
   //   description: "Log in user",
@@ -33,6 +37,10 @@ export default function Home() {
   //   available: "remote",
   //   // render
   // })
+  const loggedIn = await isLoggedIn();
+  if (loggedIn) {
+    redirect("/dashboard");
+  }
   return (
     <>
       <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
@@ -63,29 +71,12 @@ export default function Home() {
           </ol>
 
           <div className="flex gap-4 items-center flex-col sm:flex-row">
-            <a
-              className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-              href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Image
-                className="dark:invert"
-                src="/vercel.svg"
-                alt="Vercel logomark"
-                width={20}
-                height={20}
-              />
-              Deploy now
-            </a>
-            <a
-              className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-              href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Read our docs
-            </a>
+            <Link href="/login">
+              <Button>Login</Button>
+            </Link>
+            <Link href="/register">
+              <Button variant="outline">Register</Button>
+            </Link>
           </div>
         </main>
         <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
@@ -136,7 +127,7 @@ export default function Home() {
           </a>
         </footer>
       </div>
-      <CopilotPopup
+      {/* <CopilotPopup
         instructions={"You are assisting the user as best as you can. Answer in the best way possible given the data you have."}
         labels={{
           title: "Popup Assistant",
@@ -146,7 +137,7 @@ export default function Home() {
         //   console.log("result message props", props)
         //   return JSON.stringify(props)
         // }}
-      />
+      /> */}
     </>
   );
 }
