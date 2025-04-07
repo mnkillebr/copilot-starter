@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { DarkModeToggle } from "@/components/DarkModeToggle";
 // import { useCopilotAction } from "@copilotkit/react-core";
 // import { loginLoginAccessTokenPost, Token } from "./openapi-client";
-import { isLoggedIn } from "@/components/auth/user";
+import { getUser, isLoggedIn } from "@/components/auth/user";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
@@ -38,7 +38,8 @@ export default async function Home() {
   //   // render
   // })
   const loggedIn = await isLoggedIn();
-  if (loggedIn) {
+  const user = await getUser();
+  if (loggedIn && (user && "id" in user)) {
     redirect("/dashboard");
   }
   return (

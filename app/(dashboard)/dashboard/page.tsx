@@ -1,11 +1,30 @@
 
 
+// "use client";
 import { getUser } from "@/components/auth/user";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { redirect } from "next/navigation";
+// import { useEffect, useState } from "react";
 
 export default async function DashboardPage() {
-  const user = await getUser();
 
+  // client side implementation
+  // const [user, setUser] = useState<any>(null);
+  // useEffect(() => {
+  //   async function fetchUser() {
+  //     const userResponse = await fetch("/api/user");
+  //     const userData = await userResponse.json();
+  //     console.log(userData);
+  //     setUser(userData);
+  //   }
+  //   fetchUser();
+  // }, [])
+
+  // server side implementation
+  const user = await getUser();
+  if (!user || !("id" in user)) {
+    redirect("/login");
+  }
   return (
     <div className="space-y-6">
       <div>
